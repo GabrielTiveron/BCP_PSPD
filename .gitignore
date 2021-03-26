@@ -42,6 +42,10 @@
 *.idb
 *.pdb
 
+# Ignored Folders
+.vscode/
+bin/
+
 # Kernel Module Compile Results
 *.mod*
 *.cmd
