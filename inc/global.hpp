@@ -18,6 +18,7 @@ typedef struct Clausula {
 } Clausula;
 
 extern int to_index(int t);
+extern int from_index(int t);
 
 extern Variavel *variaveis;
 extern Clausula *clausulas;

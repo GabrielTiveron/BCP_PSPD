@@ -44,7 +44,7 @@
 
 # Ignored Folders
 .vscode/
-bin/
+bin/*
 
 # Kernel Module Compile Results
 *.mod*

@@ -12,8 +12,8 @@ void para_falso(int var) {
 
 void flip_variavel(int var) {
   if(variaveis[to_index(var)].valor == true) {
-    para_verdadeiro(var);
-  } else {
     para_falso(var);
+  } else {
+    para_verdadeiro(var);
   }
 }

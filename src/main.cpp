@@ -24,11 +24,18 @@ void comando_flip() {
   cin >> to_flip;
   flip_variavel(to_flip);
   reavalia_variavel(to_flip);
-  
+}
+
+void print_vars(){
+  cout << "==============================" << endl;
+  for(int i = 0; i < numero_variaveis*2; i++){
+    cout << from_index(i) << " : " << variaveis[to_index(from_index(i))].valor << endl;
+  }
+  cout << "==============================" << endl;
 }
 
 int main() {
-  scanf("%d %d", &numero_variaveis, &numero_clausulas);
+  cin >> numero_variaveis >> numero_clausulas;
   scan_clausulas();
 
   string comando;
@@ -39,5 +46,6 @@ int main() {
     } else if (comando.compare("flip") == 0) {
       comando_flip();
     }
+//    print_vars();
   }
 }
