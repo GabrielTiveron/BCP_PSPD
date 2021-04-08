@@ -22,18 +22,20 @@ void print_vars(){
   //cout << "==============================" << endl;
 }
 
-void solve_cmd(Full cmd, to_print* prnt){
+void solve_cmd(Full cmd, Metadata * ptr_met){
   for(int i = 0; i < numero_variaveis; i++){
     para_verdadeiro(cmd.true_vars[i]);
   }
+  ptr_met->mtdt.push_back(new to_print());
   
-  verifica_todas_as_clausula(prnt);
+  verifica_todas_as_clausula(ptr_met->mtdt[ptr_met->indexes++]);
 
   int qtd_flips = cmd.flips.size();
 
   for(int i = 0; i < qtd_flips-1;i++){
     flip_variavel(cmd.flips[i].var);
-    reavalia_variavel(cmd.flips[i].var, prnt);
+    ptr_met->mtdt.push_back(new to_print());
+    reavalia_variavel(cmd.flips[i].var, ptr_met->mtdt[ptr_met->indexes++]);
   }
 
   qtd_thread--;
@@ -66,31 +68,24 @@ int main() {
   }
   
   vector<thread> t;
-  metadata = new vector<to_print>();
   for(int i = 0; i < index; i++){
-    metadata->push_back(new to_print());
-    solve_cmd(fulls[i], &metadata[i]);
-
-    // TODO paralelizar a solução  
-
+    metadata.push_back(new Metadata());
+    solve_cmd(fulls[i], metadata[i]);
   }
   free(variaveis);
   free(clausulas);
 
-  cout << "teste" << endl;
-  
-  for(int i = 0; i < index; i++){
-    cout << "for " << i << endl;
-  //  t[i].join();
-    if(metadata[i]->sat){
-      cout << "SAT" << endl;
-    }else{
-      cout << "else" << endl;
-      cout << "[" << metadata[i].qtd_clauses << "clausulas falsas]";
-      for(int j = 0; j < metadata[i].qtd_clauses; j++){
-        cout << " " << metadata[i].clauses[j];
+  for(int j = 0; j < index; j++){
+    for(int i = 0; i < metadata[j]->indexes; i++){
+      if(metadata[j]->mtdt[i]->sat){
+        cout << "SAT" << endl;
+      }else{
+        cout << "[" << metadata[j]->mtdt[i]->qtd_clauses << " clausulas falsas]";
+        for(int k = 0; k < metadata[j]->mtdt[i]->qtd_clauses; k++){
+          cout << " " << metadata[j]->mtdt[i]->clauses[k];
+        }
+        cout << endl;
       }
-      cout << endl;
     }
   }
 

@@ -25,19 +25,19 @@ void verifica_todas_as_clausula(to_print* prnt) {
   }
   //cout << "dps for" << endl;
   if(resultado_final){
-    cout << "SAT" << endl;
+//    cout << "SAT" << endl;
     prnt->sat = true;
   }
   else{
     prnt->sat = false;
     prnt->qtd_clauses = cont;
-    cout << "[" << cont << " clausulas falsas]";
+  //  cout << "[" << cont << " clausulas falsas]";
     for(int i = 0; i < cont; i++){
-      cout << " " << falsa[i];
+    //  cout << " " << falsa[i];
       prnt->clauses.push_back(falsa[i]);
     }
 
-    cout << endl;
+    //cout << endl;
   }
   free(falsa);
 }
@@ -51,19 +51,19 @@ void verifica_formula(to_print *prnt){
   }
   
   if(resultado_final){
-    cout << "SAT" << endl;
+    //cout << "SAT" << endl;
     prnt->sat = true;
   }
   else{
     prnt->sat = false;
     prnt->qtd_clauses = cont;
-    cout << "[" << cont << " clausulas falsas]";
+    //cout << "[" << cont << " clausulas falsas]";
     for(int i = 0; i < cont; i++){
-      cout << " " << falsa[i];
+      //cout << " " << falsa[i];
       prnt->clauses.push_back(falsa[i]);
     }
 
-    cout << endl;
+    //cout << endl;
   }
 
   free(falsa);

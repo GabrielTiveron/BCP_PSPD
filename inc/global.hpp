@@ -31,7 +31,13 @@ typedef struct to_print{
   vector<int> clauses;
   vector<int> lits;
   bool sat = false;
+  int index = 0;
 }to_print;
+
+typedef struct metadata{
+  vector<to_print*> mtdt;
+  int indexes;
+}Metadata;
 
 extern int to_index(int t);
 extern int from_index(int t);
@@ -39,7 +45,7 @@ extern int from_index(int t);
 extern Variavel *variaveis;
 extern Clausula *clausulas;
 extern vector<Full> fulls;
-extern vector<to_print> *metadata;
+extern vector<Metadata*> metadata;
 
 extern int numero_clausulas, numero_variaveis;
 
