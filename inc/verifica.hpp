@@ -2,6 +2,7 @@
 #define _VERIFICA_
 #include "../inc/global.hpp"
 #include<iostream>
+#include <algorithm>
 
 using namespace std;
 

@@ -85,6 +85,13 @@ int main() {
           cout << " " << metadata[j]->mtdt[i]->clauses[k];
         }
         cout << endl;
+
+        cout << "[lits] ";
+        int lits_size = metadata[j]->mtdt[i]->lits.size();
+        for(int k = 0; k < lits_size; k++){
+          cout << " " << metadata[j]->mtdt[i]->lits[k];
+        }
+        cout << endl;
       }
     }
   }
