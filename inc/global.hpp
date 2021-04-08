@@ -17,11 +17,29 @@ typedef struct Clausula {
   bool valor;
 } Clausula;
 
+typedef struct Flip{
+  int var;
+}Flip;
+
+typedef struct full{
+  vector<int> true_vars;
+  vector<Flip> flips;
+}Full;
+
+typedef struct to_print{
+  int qtd_clauses;
+  vector<int> clauses;
+  vector<int> lits;
+  bool sat = false;
+}to_print;
+
 extern int to_index(int t);
 extern int from_index(int t);
 
 extern Variavel *variaveis;
 extern Clausula *clausulas;
+extern vector<Full> fulls;
+extern vector<to_print> *metadata;
 
 extern int numero_clausulas, numero_variaveis;
 

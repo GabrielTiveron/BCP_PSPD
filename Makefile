@@ -11,12 +11,14 @@ CC := g++
 
 CFLAGS := -W -Wall -ansi -O2 -static -pedantic -std=c++0x
 
+LDFLAGS := -lpthread
+
 # Qualquer coisa de extensão .cpp
 SRCFILES := $(wildcard src/*.cpp)
 
 # SRCFILES transforma o .cpp em .o para a pasta obj
 all: create_folders $(SRCFILES:src/%.cpp=obj/%.o)
-	$(CC) $(CFLAGS) obj/*.o -o bin/prog
+	$(CC) $(CFLAGS) obj/*.o -o bin/prog $(LDFLAGS)
 
 # Compila o programa classe por classe.
 obj/%.o: src/%.cpp

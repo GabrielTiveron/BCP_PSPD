@@ -10,5 +10,7 @@ int from_index(int t){
 
 Variavel *variaveis;
 Clausula *clausulas;
+vector<Full> fulls;
+vector<to_print>* metadata; 
 
 int numero_clausulas, numero_variaveis;
