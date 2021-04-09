@@ -33,7 +33,7 @@ typedef struct full{
 typedef struct to_print{
   int qtd_clauses;
   vector<int> clauses;
-  vector<int> lits;
+  map<const int, int,greater<const int>> lits;
   bool sat = false;
   int index = 0;
 }to_print;

@@ -13,35 +13,38 @@ bool verifica_clausula(Clausula *c) {
   return c->valor;
 }
 
-// bool compare_grandeza(int a, int b) { return abs(a) > abs(b); }
+//bool compare_grandeza(int a, int b) { return abs(a) > abs(b); }
 
-bool compare_lits(int a, int b) {
-  if(variaveis[to_index(a)].qtd_clausulas_falsas < variaveis[to_index(b)].qtd_clausulas_falsas) {
-    return true;
-  } else if (a == b) {
-    return abs(a) > abs(b);
-  } else {
-    return false;
-  }
-}
+//bool compare_lits(int a, int b) {
+//  if(variaveis[to_index(a)].qtd_clausulas_falsas < variaveis[to_index(b)].qtd_clausulas_falsas) {
+//    return true;
+//  } else if (a == b) {
+//    return abs(a) > abs(b);
+//  } else {
+//    return false;
+//  }
+//}
   void make_lits(to_print *prnt) {
     // map<const int, int> lol;
     // lol.insert({0, 1});
 
     for (int i = 0; i < numero_variaveis * 2; i++) {
       if (!variaveis[i].valor) {
+        int qtd_falsa = 0;
         int numero_de_clausulas = variaveis[i].clausulas.size();
-        variaveis[i].qtd_clausulas_falsas = 0;
+        //variaveis[i].qtd_clausulas_falsas = 0;
 
         for (int j = 0; j < numero_de_clausulas; j++) {
           if (!variaveis[i].clausulas[j]->valor) {
-            variaveis[i].qtd_clausulas_falsas++;
+            //variaveis[i].qtd_clausulas_falsas++;
+            qtd_falsa++;
           }
         }
-        prnt->lits.push_back(from_index(i));
+        if(qtd_falsa > 0)
+          prnt->lits.insert(pair<const int, int>(i, qtd_falsa));
       }
     }
-    stable_sort(prnt->lits.begin(), prnt->lits.end(), compare_lits);
+    //stable_sort(prnt->lits.begin(), prnt->lits.end(), compare_lits);
   }
 
   void verifica_todas_as_clausula(to_print *prnt) {

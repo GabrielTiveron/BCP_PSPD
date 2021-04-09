@@ -93,11 +93,11 @@ int main() {
 
         cout << "[lits]";
         // int lits_size = metadata[j]->mtdt[i]->lits.size();
-        // for (map<const int, int>::iterator k =
-        //          metadata[j]->mtdt[i]->lits.begin();
-        //      k != metadata[j]->mtdt[i]->lits.end(); ++k) {
-        //   cout << " " << k->first;
-        // }
+        for (map<const int, int>::iterator k =
+                  metadata[j]->mtdt[i]->lits.begin();
+              k != metadata[j]->mtdt[i]->lits.end(); ++k) {
+           cout << " " << from_index(k->first);
+         }
         cout << endl;
       }
     }
