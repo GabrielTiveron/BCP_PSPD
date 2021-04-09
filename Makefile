@@ -9,9 +9,9 @@ OBJFOLDER := obj/
 
 CC := g++
 
-CFLAGS := -W -Wall -ansi -O2 -static -pedantic -std=c++0x
+CFLAGS := -Wall -O2 -static
 
-LDFLAGS := -lpthread
+LDFLAGS := -Wl,--whole-archive -lpthread -Wl,--no-whole-archive
 
 # Qualquer coisa de extensão .cpp
 SRCFILES := $(wildcard src/*.cpp)

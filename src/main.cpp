@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <thread>
+#include <pthread.h>
 #include <vector>
 
 #include "../inc/atribui.hpp"
@@ -8,11 +9,11 @@
 #include "../inc/scan.hpp"
 #include "../inc/verifica.hpp"
 
-#define MAX_THREAD 2
+//#define MAX_THREAD 2
 
 using namespace std;
 
-int index = 0, index_flip = 0, qtd_thread = 0, index_print = 0;
+int index_ = 0, index_flip = 0, qtd_thread = 0, index_print = 0;
 
 void print_vars() {
   // cout << "==============================" << endl;
@@ -46,7 +47,8 @@ bool sort_lits(const pair<int, int>&a, pair<int, int>& b){
   return a.second != b.second ? a.second > b.second : abs(a.first) > abs(b.first);
 }
 
-int main() {
+int main(int argc, char**argv) {
+  int MAX_THREAD = atoi(argv[1]);
   cin >> numero_variaveis >> numero_clausulas;
   scan_clausulas();
 
@@ -55,35 +57,41 @@ int main() {
   while (cin >> comando) {
     if (comando.compare("full") == 0) {
       fulls.push_back(Full());
-      fulls[index].flips.push_back(Flip());
+      fulls[index_].flips.push_back(Flip());
       index_flip = 0;
       for (int i = 0; i < numero_variaveis; i++) {
         int var;
         cin >> var;
-        fulls[index].true_vars.push_back(var);
+        fulls[index_].true_vars.push_back(var);
       }
-      index++;
+      index_++;
     } else if (comando.compare("flip") == 0) {
       int var;
       cin >> var;
-      fulls[index - 1].flips.push_back(Flip());
-      fulls[index - 1].flips[index_flip++].var = var;
+      fulls[index_ - 1].flips.push_back(Flip());
+      fulls[index_ - 1].flips[index_flip++].var = var;
     }
   }
 
   vector<thread> t;
-  for (int i = 0; i < index; i++) {
+  for (int i = 0; i < index_; i++) {
     metadata.push_back(new Metadata());
-    // t.push_back(move(thread(solve_cmd, fulls[i], metadata[i])));
-    solve_cmd(fulls[i], metadata[i]);
+    while(qtd_thread > MAX_THREAD){
+
+    }
+    qtd_thread++;
+    thread th(solve_cmd, fulls[i], metadata[i]);
+    t.push_back(move(th));
+    //solve_cmd(fulls[i], metadata[i]);
   }
-  // for (int i = 0; i < index; i++) {
-  //   t[i].join();
-  // }
+  for(thread& tt: t) {
+    if(tt.joinable())
+      tt.join();
+  }
   free(variaveis);
   free(clausulas);
 
-  for (int j = 0; j < index; j++) {
+  for (int j = 0; j < index_; j++) {
     for (int i = 0; i < metadata[j]->indexes; i++) {
       if (metadata[j]->mtdt[i]->sat) {
         cout << "SAT" << endl;
