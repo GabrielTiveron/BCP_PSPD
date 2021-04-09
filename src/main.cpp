@@ -42,6 +42,15 @@ void solve_cmd(Full cmd, Metadata* ptr_met) {
   qtd_thread--;
 }
 
+template<typename K, typename V>
+std::vector<std::pair<K, V>> mapToVector(const std::map<K, V> &map) {
+	return std::vector<std::pair<K, V>>(map.begin(), map.end());
+}
+
+bool sort_lits(const pair<int, int>&a, pair<int, int>& b){
+  return a.second != b.second ? a.second > b.second : abs(a.first) > abs(b.first);
+}
+
 int main() {
   cin >> numero_variaveis >> numero_clausulas;
   scan_clausulas();
@@ -92,12 +101,11 @@ int main() {
         cout << endl;
 
         cout << "[lits]";
-        // int lits_size = metadata[j]->mtdt[i]->lits.size();
-        for (map<const int, int>::iterator k =
-                  metadata[j]->mtdt[i]->lits.begin();
-              k != metadata[j]->mtdt[i]->lits.end(); ++k) {
-           cout << " " << from_index(k->first);
-         }
+        vector<pair<int,int>> vmap = mapToVector(metadata[j]->mtdt[i]->lits);
+        sort(vmap.begin(), vmap.end(), sort_lits);
+        for(pair<int,int> it: vmap){
+          cout << " " << it.first;
+        }
         cout << endl;
       }
     }
