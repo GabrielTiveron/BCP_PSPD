@@ -13,26 +13,11 @@ bool verifica_clausula(Clausula *c) {
   return c->valor;
 }
 
-//bool compare_grandeza(int a, int b) { return abs(a) > abs(b); }
-
-//bool compare_lits(int a, int b) {
-//  if(variaveis[to_index(a)].qtd_clausulas_falsas < variaveis[to_index(b)].qtd_clausulas_falsas) {
-//    return true;
-//  } else if (a == b) {
-//    return abs(a) > abs(b);
-//  } else {
-//    return false;
-//  }
-//}
 void make_lits(to_print *prnt) {
-  // map<const int, int> lol;
-  // lol.insert({0, 1});
-
   for (int i = 0; i < numero_variaveis * 2; i++) {
     if (!variaveis[i].valor) {
       int qtd_falsa = 0;
       int numero_de_clausulas = variaveis[i].clausulas.size();
-      //variaveis[i].qtd_clausulas_falsas = 0;
 
       for (int j = 0; j < numero_de_clausulas; j++) {
         if (!variaveis[i].clausulas[j]->valor) {
@@ -41,38 +26,30 @@ void make_lits(to_print *prnt) {
         }
       }
       if(qtd_falsa > 0)
-        prnt->lits.insert(pair<int, int>(from_index(i), qtd_falsa));
+        prnt->lits.push_back(pair<int, int>(from_index(i), qtd_falsa));
     }
   }
-  //stable_sort(prnt->lits.begin(), prnt->lits.end(), compare_lits);
 }
 
 void verifica_todas_as_clausula(to_print *prnt) {
-  // cout << "entrou verf claus" << endl;
   bool resultado_final = true;
   int *falsa = (int *)malloc(numero_clausulas * sizeof(int)), cont = 0;
-  // cout << "dps malloc" << endl;
   for (int i = 0; i < numero_clausulas; i++) {
     bool res = verifica_clausula(&clausulas[i]);
     resultado_final = resultado_final && res;
     if (!clausulas[i].valor) falsa[cont++] = i;
   }
-  // cout << "dps for" << endl;
   if (resultado_final) {
-    //    cout << "SAT" << endl;
     prnt->sat = true;
   } else {
     prnt->sat = false;
     prnt->qtd_clauses = cont;
-    //  cout << "[" << cont << " clausulas falsas]";
     for (int i = 0; i < cont; i++) {
-      //  cout << " " << falsa[i];
       prnt->clauses.push_back(falsa[i]);
     }
 
     make_lits(prnt);
 
-    // cout << endl;
   }
   free(falsa);
 }

@@ -30,12 +30,10 @@ typedef struct full{
   vector<Flip> flips;
 }Full;
 
-
 typedef struct to_print{
   int qtd_clauses;
   vector<int> clauses;
-  //vector<pair<int, int>> lits;
-  map<int, int> lits;
+  vector<pair<int, int>> lits;
   bool sat = false;
   int index = 0;
 }to_print;
