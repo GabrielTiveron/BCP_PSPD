@@ -1,6 +1,9 @@
 #ifndef _GOBAL_
 #define _GOBAL_
 #include <vector>
+#include <unordered_map>
+#include <map>
+#include <utility> 
 
 using namespace std;
 
@@ -9,6 +12,7 @@ struct Clausula;
 
 typedef struct Variavel {
   vector<Clausula *> clausulas;
+  int qtd_clausulas_falsas = 0;
   bool valor;
 } Variavel;
 
