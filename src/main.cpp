@@ -1,7 +1,10 @@
+#include <pthread.h>
+#include <signal.h>
+#include <unistd.h>
+
 #include <iostream>
 #include <string>
 #include <thread>
-#include <pthread.h>
 #include <vector>
 
 #include "../inc/atribui.hpp"
@@ -14,6 +17,7 @@
 using namespace std;
 
 int index_ = 0, index_flip = 0, qtd_thread = 0, index_print = 0;
+pthread_t main_thread;
 
 void print_vars() {
   // cout << "==============================" << endl;
@@ -30,24 +34,32 @@ void solve_cmd(Full cmd, Metadata* ptr_met) {
   }
   ptr_met->mtdt.push_back(new to_print());
 
-  verifica_todas_as_clausula(ptr_met->mtdt[ptr_met->indexes++]);
+  verifica_todas_as_clausula(ptr_met->mtdt[ptr_met->indexes++]);  // n*m
 
   int qtd_flips = cmd.flips.size();
 
   for (int i = 0; i < qtd_flips - 1; i++) {
     flip_variavel(cmd.flips[i].var);
     ptr_met->mtdt.push_back(new to_print());
-    reavalia_variavel(cmd.flips[i].var, ptr_met->mtdt[ptr_met->indexes++]);
+    reavalia_variavel(cmd.flips[i].var,
+                      ptr_met->mtdt[ptr_met->indexes++]);  // 2n*m
   }
 
-  qtd_thread--;
+  pthread_kill(main_thread, SIGUSR1);
+  // qtd_thread--;
 }
 
-bool sort_lits(const pair<int, int>&a, pair<int, int>& b){
-  return a.second != b.second ? a.second > b.second : abs(a.first) > abs(b.first);
+bool sort_lits(const pair<int, int>& a, pair<int, int>& b) {
+  return a.second != b.second ? a.second > b.second
+                              : abs(a.first) > abs(b.first);
 }
 
-int main(int argc, char**argv) {
+void free_thread(int sig) { qtd_thread--; }
+
+int main(int argc, char** argv) {
+  main_thread = pthread_self();
+  signal(SIGUSR1, free_thread);
+
   int MAX_THREAD = atoi(argv[1]);
   cin >> numero_variaveis >> numero_clausulas;
   scan_clausulas();
@@ -76,36 +88,35 @@ int main(int argc, char**argv) {
   vector<thread> t;
   for (int i = 0; i < index_; i++) {
     metadata.push_back(new Metadata());
-    while(qtd_thread > MAX_THREAD){
-
+    while (qtd_thread > MAX_THREAD) {
     }
     qtd_thread++;
-    thread th(solve_cmd, fulls[i], metadata[i]);
+    thread th(solve_cmd, fulls[i], metadata[i]);  // 3(n*m)
     t.push_back(move(th));
-    //solve_cmd(fulls[i], metadata[i]);
+    // solve_cmd(fulls[i], metadata[i]);
   }
-  for(thread& tt: t) {
-    if(tt.joinable())
-      tt.join();
+  for (thread& tt : t) {
+    if (tt.joinable()) tt.join();
   }
   free(variaveis);
   free(clausulas);
 
-  for (int j = 0; j < index_; j++) {
-    for (int i = 0; i < metadata[j]->indexes; i++) {
+  for (int j = 0; j < index_; j++) {                  // k  k*(y*(m+n*log(n)+n))
+    for (int i = 0; i < metadata[j]->indexes; i++) {  // m
       if (metadata[j]->mtdt[i]->sat) {
         cout << "SAT" << endl;
       } else {
         cout << "[" << metadata[j]->mtdt[i]->qtd_clauses
              << " clausulas falsas]";
-        for (int k = 0; k < metadata[j]->mtdt[i]->qtd_clauses; k++) {
+        for (int k = 0; k < metadata[j]->mtdt[i]->qtd_clauses; k++) {  // m
           cout << " " << metadata[j]->mtdt[i]->clauses[k];
         }
         cout << endl;
 
         cout << "[lits]";
-        sort(metadata[j]->mtdt[i]->lits.begin(), metadata[j]->mtdt[i]->lits.end(), sort_lits);
-        for(pair<int,int> it: metadata[j]->mtdt[i]->lits){
+        sort(metadata[j]->mtdt[i]->lits.begin(),
+             metadata[j]->mtdt[i]->lits.end(), sort_lits);  // nlog(n)
+        for (pair<int, int> it : metadata[j]->mtdt[i]->lits) {
           cout << " " << it.first;
         }
         cout << endl;
