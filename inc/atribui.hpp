@@ -4,10 +4,10 @@
 
 using namespace std;
 
-void para_verdadeiro(int var);
+void para_verdadeiro(int var, Variavel * variaveis_arg);
 
-void para_falso(int var);
+void para_falso(int var, Variavel * variaveis_arg);
 
-void flip_variavel(int var);
+void flip_variavel(int var, Variavel * variaveis_arg);
 
 #endif

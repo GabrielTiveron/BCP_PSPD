@@ -28,6 +28,8 @@ typedef struct Flip{
 typedef struct full{
   vector<int> true_vars;
   vector<Flip> flips;
+  Variavel *variaveis;
+  Clausula *clausulas;
 }Full;
 
 typedef struct to_print{
