@@ -7,12 +7,12 @@
 
 using namespace std;
 
-bool verifica_clausula(Clausula *);
+bool verifica_clausula(Clausula *, Variavel*);
 
 void verifica_todas_as_clausula(to_print *prnt);
 
 void reavalia_variavel(int var, to_print *prnt);
 
-void verifica_formula(to_print *prnt);
+void verifica_formula(to_print *prnt, Full * full);
 
 #endif

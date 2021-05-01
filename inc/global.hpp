@@ -3,7 +3,10 @@
 #include <vector>
 #include <unordered_map>
 #include <map>
-#include <utility> 
+#include <utility>
+
+#define MAX_CLAUSULA 134217728
+#define MAX_VAR 1048576
 
 using namespace std;
 
@@ -11,23 +14,27 @@ struct Variavel;
 struct Clausula;
 
 typedef struct Variavel {
-  vector<Clausula *> clausulas;
+  vector<int> clausulas;
   int qtd_clausulas_falsas = 0;
-  bool valor;
+  bool valor = false;
+  int index = 0;
 } Variavel;
 
 typedef struct Clausula {
-  vector<Variavel *> variaveis;
+  vector<int> variaveis;
   bool valor;
+  int index = 0;
 } Clausula;
 
 typedef struct Flip{
   int var;
 }Flip;
 
-typedef struct full{
-  vector<int> true_vars;
+typedef struct Full {
   vector<Flip> flips;
+  Variavel* vars;
+  Clausula* clausulas;
+  int qtd_clausulas_falsas;
 }Full;
 
 typedef struct to_print{
