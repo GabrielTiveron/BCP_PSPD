@@ -24,7 +24,7 @@ void para_falso(int var, Full * full) {
 }
 
 void flip_variavel(int var, to_print *prnt, Full* full) {
-  if(variaveis[to_index(var)].valor == true) {
+  if(full->vars[to_index(var)].valor == true) {
     para_falso(var, full);
     para_verdadeiro(var *-1, full);
   } else {

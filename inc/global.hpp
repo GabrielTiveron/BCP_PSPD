@@ -30,7 +30,7 @@ typedef struct Flip{
   int var;
 }Flip;
 
-typedef struct Full {
+typedef struct full {
   vector<Flip> flips;
   Variavel* vars;
   Clausula* clausulas;
