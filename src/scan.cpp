@@ -1,14 +1,14 @@
 #include "../inc/scan.hpp"
 
 void scan_clausulas() {
-  variaveis = (Variavel *)malloc(numero_variaveis * 2 * sizeof(Variavel));
-  clausulas = (Clausula *)malloc(numero_clausulas * sizeof(Clausula));
+  // variaveis = (Variavel *)malloc(numero_variaveis * 2 * sizeof(Variavel));
+  // clausulas = (Clausula *)malloc(numero_clausulas * sizeof(Clausula));
   //std::cout << "entrou nmr_var = " << numero_variaveis << '\n';
   for(int i = 0; i < 2*numero_variaveis; i++){
-   variaveis[i] = Variavel();
+   variaveis.push_back(Variavel());
   }
   for (int i = 0; i < numero_clausulas; i++) {
-    clausulas[i] = Clausula();
+    clausulas.push_back(Clausula());
     int valor_variavel;
     //cout << "alocou" << '\n';
     while ((cin >> valor_variavel) && (valor_variavel != 0)) {

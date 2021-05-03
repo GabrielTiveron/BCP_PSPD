@@ -7,7 +7,7 @@
 
 using namespace std;
 
-bool verifica_clausula(Clausula *, Variavel*);
+bool verifica_clausula(Clausula *, vector<Variavel>);
 
 void verifica_todas_as_clausula(to_print *prnt);
 

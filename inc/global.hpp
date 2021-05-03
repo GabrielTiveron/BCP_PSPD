@@ -32,8 +32,8 @@ typedef struct Flip{
 
 typedef struct full {
   vector<Flip> flips;
-  Variavel* vars;
-  Clausula* clausulas;
+  vector<Variavel> vars;
+  vector<Clausula> clausulas;
   int qtd_clausulas_falsas;
 }Full;
 
@@ -53,8 +53,8 @@ typedef struct metadata{
 extern int to_index(int t);
 extern int from_index(int t);
 
-extern Variavel *variaveis;
-extern Clausula *clausulas;
+extern vector<Variavel> variaveis;
+extern vector<Clausula> clausulas;
 extern vector<Full> fulls;
 extern vector<Metadata*> metadata;
 

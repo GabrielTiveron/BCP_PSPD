@@ -1,6 +1,6 @@
 #include "../inc/verifica.hpp"
 
-bool verifica_clausula(Clausula *c, Variavel *variaveis) {
+bool verifica_clausula(Clausula *c, vector<Variavel> variaveis) {
   bool resultado_clausula = false;
   int tam = c->index;
   for (int i = 0; i < tam; i++) {

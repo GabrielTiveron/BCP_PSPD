@@ -16,21 +16,21 @@
 #define MAX_THREAD 2
 
 using namespace std;
-void copy_dynamic_variaveis(Variavel *src, Variavel **dest) {
-  *dest = (Variavel *)malloc(numero_variaveis * sizeof(Variavel));
-
-  for (int i = 0; i < numero_variaveis; i++) {
-    *dest[i] = src[i];
-  }
-}
-
-void copy_dynamic_clausulas(Clausula *src, Clausula **dest) {
-  *dest = (Clausula *)malloc(numero_clausulas * sizeof(Clausula));
-
-  for (int i = 0; i < numero_clausulas; i++) {
-    *dest[i] = src[i];
-  }
-}
+// void copy_dynamic_variaveis(Variavel *src, Variavel **dest) {
+//   *dest = (Variavel *)malloc(numero_variaveis * sizeof(Variavel));
+//
+//   for (int i = 0; i < numero_variaveis; i++) {
+//     *dest[i] = src[i];
+//   }
+// }
+//
+// void copy_dynamic_clausulas(Clausula *src, Clausula **dest) {
+//   *dest = (Clausula *)malloc(numero_clausulas * sizeof(Clausula));
+//
+//   for (int i = 0; i < numero_clausulas; i++) {
+//     *dest[i] = src[i];
+//   }
+// }
 
 int index_ = 0, index_flip = 0, qtd_thread = 0, index_print = 0,
     index_consumer = 0;
@@ -110,16 +110,8 @@ int main(int argc, char **argv) {
       // cout << "fick\n";
       fulls[index_].flips.push_back(Flip());
       index_flip = 0;
-      fulls[index_].vars =
-          (Variavel *)malloc(numero_variaveis * sizeof(Variavel) * 2);
-      for (int i = 0; i < numero_variaveis; i++) {
-        fulls[index_].vars[i] = variaveis[i];
-      }
-      fulls[index_].clausulas =
-          (Clausula *)malloc(numero_clausulas * sizeof(Clausula));
-      for (int i = 0; i < numero_clausulas; i++) {
-        fulls[index_].clausulas[i] = clausulas[i];
-      }
+      fulls[index_].vars = variaveis;
+      fulls[index_].clausulas = clausulas;
   //     // copy_dynamic_variaveis(variaveis, &fulls[index_].vars);
   //     // copy_dynamic_clausulas(clausulas, &fulls[index_].clausulas);
   //     // fulls[index_].vars = variaveis;
@@ -140,27 +132,27 @@ int main(int argc, char **argv) {
       fulls[index_ - 1].flips[index_flip++].var = var;
     }
   }
-  
+
   // cout << "Dps full e flip" << '\n';
   for (int i = index_consumer; i < index_; i++) {
     metadata.push_back(new Metadata());
-    while(qtd_thread > MAX_THREAD){
-      usleep(1);
-    }
-   //   std::cout << "mais uma thread = " << qtd_thread++ << "\nI = " << i <<
-  //  "\nMax = " << index_ << '\n';
-    qtd_thread++;
-    thread th(solve_cmd, &fulls[i], metadata[i]);
-    consumers.push_back(move(th));
-    //solve_cmd(&fulls[i], metadata[i]);
+  //   while(qtd_thread > MAX_THREAD){
+  //     usleep(1);
+  //   }
+  //  //   std::cout << "mais uma thread = " << qtd_thread++ << "\nI = " << i <<
+  // //  "\nMax = " << index_ << '\n';
+  //   qtd_thread++;
+  //   thread th(solve_cmd, &fulls[i], metadata[i]);
+  //   consumers.push_back(move(th));
+    solve_cmd(&fulls[i], metadata[i]);
   }
-  for(thread& tt: consumers) {
-   if(tt.joinable())
-     tt.join();
-  }
+  // for(thread& tt: consumers) {
+  //  if(tt.joinable())
+  //    tt.join();
+  // }
   // cout << "Finished processing" << '\n';
-  free(variaveis);
-  free(clausulas);
+  // free(variaveis);
+  // free(clausulas);
 
   for (int j = 0; j < index_; j++) {
     for (int i = 0; i < metadata[j]->indexes; i++) {
