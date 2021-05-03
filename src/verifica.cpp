@@ -22,8 +22,7 @@ void make_lits(to_print *prnt, Full * f) {
 
       for (int j = 0; j < numero_de_clausulas; j++) {
         int cla_index = f->vars[i].clausulas[j];
-        if (!clausulas[cla_index].valor) {
-          //variaveis[i].qtd_clausulas_falsas++;
+        if (!f->clausulas[cla_index].valor) {
           qtd_falsa++;
         }
       }
@@ -78,22 +77,3 @@ void verifica_formula(to_print *prnt, Full * full) {
 
   free(falsa);
 }
-
-// void reavalia_variavel(int var, to_print *prnt) {
-//   int index1 = to_index(var);
-//   int index2 = to_index(var * -1);
-//   int total_clausulas_1 = variaveis[index1].index;
-//   int total_clausulas_2 = variaveis[index2].index;
-//
-//   for (int i = 0; i < total_clausulas_1; i++) {
-//     variaveis[index1].clausulas[i]->valor =
-//         verifica_clausula(variaveis[index1].clausulas[i]);
-//   }
-//
-//   for (int i = 0; i < total_clausulas_2; i++) {
-//     variaveis[index2].clausulas[i]->valor =
-//         verifica_clausula(variaveis[index2].clausulas[i]);
-//   }
-//
-//   verifica_formula(prnt);
-// }
