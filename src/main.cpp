@@ -31,7 +31,7 @@ void solve_cmd(Full *cmd, Metadata *ptr_met) {
   ptr_met->indexes = 0;
 
   verifica_formula(ptr_met->mtdt[ptr_met->indexes++], cmd);
-  verifica_todas_as_clausula(ptr_met->mtdt[ptr_met->indexes++]);  // n*m
+  //verifica_todas_as_clausula(ptr_met->mtdt[ptr_met->indexes++]);  // n*m
 
   int qtd_flips = cmd->flips.size();
 
