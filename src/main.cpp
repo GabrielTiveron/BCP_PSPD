@@ -1,6 +1,5 @@
 #include <pthread.h>
 #include <unistd.h>
-
 #include <csignal>
 #include <iostream>
 #include <iterator>
@@ -19,6 +18,7 @@ using namespace std;
 
 int index_ = 0, index_flip = 0, qtd_thread = 0, index_print = 0,
     index_consumer = 0;
+
 pthread_t main_thread;
 
 void print_vars() {
@@ -31,6 +31,7 @@ void solve_cmd(Full *cmd, Metadata *ptr_met) {
   ptr_met->indexes = 0;
 
   verifica_formula(ptr_met->mtdt[ptr_met->indexes++], cmd);
+  verifica_todas_as_clausula(ptr_met->mtdt[ptr_met->indexes++]);  // n*m
 
   int qtd_flips = cmd->flips.size();
 
@@ -54,6 +55,7 @@ int main(int argc, char **argv) {
   main_thread = pthread_self();
   signal(SIGUSR1, dec_thread);
   // int MAX_THREAD = atoi(argv[1]);
+
   cin >> numero_variaveis >> numero_clausulas;
   scan_clausulas();
   string comando;
@@ -106,16 +108,17 @@ int main(int argc, char **argv) {
   for(thread& tt: consumers) {
    if(tt.joinable())
      tt.join();
+
   }
 
-  for (int j = 0; j < index_; j++) {
-    for (int i = 0; i < metadata[j]->indexes; i++) {
+  for (int j = 0; j < index_; j++) {                  // k  k*(y*(m+n*log(n)+n))
+    for (int i = 0; i < metadata[j]->indexes; i++) {  // m
       if (metadata[j]->mtdt[i]->sat) {
         cout << "SAT" << endl;
       } else {
         cout << "[" << metadata[j]->mtdt[i]->qtd_clauses
              << " clausulas falsas]";
-        for (int k = 0; k < metadata[j]->mtdt[i]->qtd_clauses; k++) {
+        for (int k = 0; k < metadata[j]->mtdt[i]->qtd_clauses; k++) {  // m
           cout << " " << metadata[j]->mtdt[i]->clauses[k];
         }
         cout << endl;
@@ -124,6 +127,7 @@ int main(int argc, char **argv) {
         sort(metadata[j]->mtdt[i]->lits.begin(),
         metadata[j]->mtdt[i]->lits.end(), sort_lits); for(pair<int,int> it:
         metadata[j]->mtdt[i]->lits){
+
           cout << " " << it.first;
         }
         cout << endl;
