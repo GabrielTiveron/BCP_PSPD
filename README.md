@@ -38,7 +38,7 @@ Sem prints:
 
 <br>
 
-![io](./img/io.ong)
+![io](img/io.png)
 
 ### Qual é a complexidade do seu verificador?
 
@@ -56,4 +56,4 @@ Sim. Para cada flip, é feito uma "nova versão" das clausulas, e para cada vari
 
 ### Resultados
 
-![resultados](./img/compare.png)
+![resultados](img/compare.png)
