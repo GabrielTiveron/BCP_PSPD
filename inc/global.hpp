@@ -24,6 +24,7 @@ typedef struct Clausula {
   vector<int> variaveis;
   bool valor;
   int index = 0;
+  int last_update;
 } Clausula;
 
 typedef struct Flip{

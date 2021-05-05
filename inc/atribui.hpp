@@ -5,10 +5,10 @@
 
 using namespace std;
 
-void para_verdadeiro(int var, Full*full);
+void para_verdadeiro(int var, Full*full, int);
 
-void para_falso(int var, Full*full);
+void para_falso(int var, Full*full, int);
 
-void flip_variavel(int var,to_print *prnt,Full*full);
+void flip_variavel(int var,to_print *prnt,Full*full, int);
 
 #endif

@@ -36,7 +36,7 @@ void solve_cmd(Full *cmd, Metadata *ptr_met) {
 
   for (int i = 0; i < qtd_flips - 1; i++) {
     ptr_met->mtdt.push_back(new to_print());
-    flip_variavel(cmd->flips[i].var, ptr_met->mtdt[ptr_met->indexes++], cmd);
+    flip_variavel(cmd->flips[i].var, ptr_met->mtdt[ptr_met->indexes++], cmd, i+1);
   }
   pthread_kill(main_thread, SIGUSR1);
 
@@ -58,7 +58,7 @@ int main(int argc, char **argv) {
   scan_clausulas();
   string comando;
   vector<thread> consumers;
-  bool after_second = false;
+  //bool after_second = false;
 
   while (cin >> comando) {
     if (comando[1] == 'u') {
@@ -80,10 +80,10 @@ int main(int argc, char **argv) {
         int var;
         cin >> var;
 
-        para_verdadeiro(var, &fulls[index_]);
+        para_verdadeiro(var, &fulls[index_], 0);
 
       }
-      after_second = true;
+      //after_second = true;
       index_++;
     } else if (comando[1] == 'l') {
       int var;

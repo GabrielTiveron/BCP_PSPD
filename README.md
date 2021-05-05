@@ -15,33 +15,45 @@
 Gere um relatório simples contendo gráficos de desempenho para as diversas execuções
 Coloque a comparação da sua solução com a implementação sequencial fornecida;
 Avalie o gargalo do seu algoritmo
-### * O maior problema acontece nas estruturas de controle (ex:semáforos)?
-    Não. O maior gargalo é no processamento, quando o número de threads do programa é igual ao do computador.
-### * O tempo de leitura da entrada é perceptível?
-    Sim. Em entradas grandes é perceptível.
+### O maior problema acontece nas estruturas de controle (ex:semáforos)?
 
-### * Isole o tempo de execução da função que avalia a verificação (descontando o tempo de leitura da fórmula e de cada valoração full e flips)
+Não. O maior gargalo é no processamento, quando o número de threads do programa é igual ao do computador.
+
+### O tempo de leitura da entrada é perceptível?
+
+Sim. Em entradas grandes é perceptível.
+
+### Isole o tempo de execução da função que avalia a verificação (descontando o tempo de leitura da fórmula e de cada valoração full e flips)
+
 Amostra de uma execução por arquivo com 4 threads.
-Com prints: 
+Com prints:
 * flat75-90: 1.111s
 * flat175-44: 41.053s
 * uf125-01: 1m31.291s
 
-Sem prints: 
+Sem prints:
 * flat75-90: 0.808s
 * flat175-44: 10.451s
 * uf125-01: 47.423s
 
 <br>
 
-### * Qual é a complexidade do seu verificador?
-    
-    Com as seguintes variáveis:
-    f = número de fulls
-    fl = número de flips
-    c = número de cláusulas
-    v = número de variáveis
+![io](./img/io.ong)
 
-    f ((c v)+(fl+1)(c c + v c) + fl (v log(v))))
-### * O seu algoritmo aproveita resultados parciais para avaliar flips mais rapidamente?
-    Não.
+### Qual é a complexidade do seu verificador?
+
+Com as seguintes variáveis:
+f = número de fulls
+fl = número de flips
+c = número de cláusulas
+v = número de variáveis
+
+f ((c v)+(fl+1)(c c + v c) + fl (v log(v))))
+
+### O seu algoritmo aproveita resultados parciais para avaliar flips mais rapidamente?
+
+Sim. Para cada flip, é feito uma "nova versão" das clausulas, e para cada variável tida como verdadeira é diretamente feita uma valoração verdadeira as suas clausulas para que não sejam reavaliadas nessa "versão".
+
+### Resultados
+
+![resultados](./img/compare.png)
