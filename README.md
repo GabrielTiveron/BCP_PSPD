@@ -57,3 +57,7 @@ Sim. Para cada flip, é feito uma "nova versão" das clausulas, e para cada vari
 ### Resultados
 
 ![resultados](img/compare.png)
+
+Comparativo com nosso foco de paralelização
+
+![tempoxfull](img/qtd_full.png)
