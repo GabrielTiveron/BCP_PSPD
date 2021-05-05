@@ -48,7 +48,7 @@ fl = número de flips
 c = número de cláusulas
 v = número de variáveis
 
-f ((c v)+(fl+1)(c c + v c) + fl (v log(v))))
+O(f ((c v)+(fl+1)(c c + v c) + fl (v log(v)))))
 
 ### O seu algoritmo aproveita resultados parciais para avaliar flips mais rapidamente?
 
