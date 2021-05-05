@@ -8,9 +8,9 @@ int from_index(int t){
   return (t+1) > numero_variaveis ? (t - numero_variaveis) + (t - numero_variaveis) * (-2) -1 : t+1;
 }
 
-Variavel *variaveis;
-Clausula *clausulas;
+vector<Variavel> variaveis;
+vector<Clausula> clausulas;
 vector<Full> fulls;
-vector<Metadata*> metadata; 
+vector<Metadata*> metadata;
 
 int numero_clausulas, numero_variaveis;

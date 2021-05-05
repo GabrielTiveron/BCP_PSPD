@@ -1,10 +1,11 @@
 #include "../inc/verifica.hpp"
 
-bool verifica_clausula(Clausula *c) {
+bool verifica_clausula(Clausula *c, vector<Variavel> variaveis) {
   bool resultado_clausula = false;
-  int tam = c->variaveis.size();
+  int tam = c->index;
   for (int i = 0; i < tam; i++) {
-    resultado_clausula = resultado_clausula || c->variaveis[i]->valor;
+    int var = c->variaveis[i];
+    resultado_clausula = resultado_clausula || variaveis[var].valor;
     if (resultado_clausula) break;
   }
 
@@ -13,15 +14,15 @@ bool verifica_clausula(Clausula *c) {
   return c->valor;
 }
 
-void make_lits(to_print *prnt) {
+void make_lits(to_print *prnt, Full * f) {
   for (int i = 0; i < numero_variaveis * 2; i++) {
-    if (!variaveis[i].valor) {
+    if (!f->vars[i].valor) {
       int qtd_falsa = 0;
-      int numero_de_clausulas = variaveis[i].clausulas.size();
+      int numero_de_clausulas = f->vars[i].index;
 
       for (int j = 0; j < numero_de_clausulas; j++) {
-        if (!variaveis[i].clausulas[j]->valor) {
-          //variaveis[i].qtd_clausulas_falsas++;
+        int cla_index = f->vars[i].clausulas[j];
+        if (!f->clausulas[cla_index].valor) {
           qtd_falsa++;
         }
       }
@@ -31,13 +32,13 @@ void make_lits(to_print *prnt) {
   }
 }
 
-void verifica_todas_as_clausula(to_print *prnt) {
+void verifica_todas_as_clausula(to_print *prnt, Full * full) {
   bool resultado_final = true;
   int *falsa = (int *)malloc(numero_clausulas * sizeof(int)), cont = 0;
   for (int i = 0; i < numero_clausulas; i++) {
-    bool res = verifica_clausula(&clausulas[i]);
+    bool res = verifica_clausula(&full->clausulas[i], full->vars);
     resultado_final = resultado_final && res;
-    if (!clausulas[i].valor) falsa[cont++] = i;
+    if (!(full->clausulas[i].valor)) falsa[cont++] = i;
   }
   if (resultado_final) {
     prnt->sat = true;
@@ -48,55 +49,31 @@ void verifica_todas_as_clausula(to_print *prnt) {
       prnt->clauses.push_back(falsa[i]);
     }
 
-    make_lits(prnt);
+    make_lits(prnt, full);
 
   }
   free(falsa);
 }
 
-void verifica_formula(to_print *prnt) {
+void verifica_formula(to_print *prnt, Full * full) {
   bool resultado_final = true;
   int *falsa = (int *)malloc(numero_clausulas * sizeof(int)), cont = 0;
   for (int i = 0; i < numero_clausulas; i++) {
-    resultado_final = resultado_final && clausulas[i].valor;
-    if (!clausulas[i].valor) falsa[cont++] = i;
+    resultado_final = resultado_final && full->clausulas[i].valor;
+    if (!(full->clausulas[i].valor)) falsa[cont++] = i;
   }
 
   if (resultado_final) {
-    // cout << "SAT" << endl;
     prnt->sat = true;
   } else {
     prnt->sat = false;
     prnt->qtd_clauses = cont;
-    // cout << "[" << cont << " clausulas falsas]";
     for (int i = 0; i < cont; i++) {
-      // cout << " " << falsa[i];
       prnt->clauses.push_back(falsa[i]);
     }
 
-    make_lits(prnt);
-
-    // cout << endl;
+    make_lits(prnt, full);
   }
 
   free(falsa);
-}
-
-void reavalia_variavel(int var, to_print *prnt) {
-  int index1 = to_index(var);
-  int index2 = to_index(var * -1);
-  int total_clausulas_1 = variaveis[index1].clausulas.size();
-  int total_clausulas_2 = variaveis[index2].clausulas.size();
-
-  for (int i = 0; i < total_clausulas_1; i++) {
-    variaveis[index1].clausulas[i]->valor =
-        verifica_clausula(variaveis[index1].clausulas[i]);
-  }
-
-  for (int i = 0; i < total_clausulas_2; i++) {
-    variaveis[index2].clausulas[i]->valor =
-        verifica_clausula(variaveis[index2].clausulas[i]);
-  }
-
-  verifica_formula(prnt);
 }
