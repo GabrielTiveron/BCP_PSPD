@@ -56,7 +56,13 @@ Sim. Para cada flip, é feito uma "nova versão" das clausulas, e para cada vari
 
 ### Resultados
 
-![resultados](img/compare.png)
+Comparação dos resultados tendo em vista algumas quantias de threads.
+
+![resultados](img/comparativo_total.png)
+
+Melhor desempenho
+
+![resultado12threads](img/compare.png)
 
 Comparativo com nosso foco de paralelização
 
