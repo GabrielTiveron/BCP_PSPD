@@ -4,9 +4,11 @@
 #include <unordered_map>
 #include <map>
 #include <utility>
+#include <thread>
 
 #define MAX_CLAUSULA 134217728
 #define MAX_VAR 1048576
+#define MAX_THREAD 12
 
 using namespace std;
 
@@ -59,6 +61,10 @@ extern vector<Clausula> clausulas;
 extern vector<Full> fulls;
 extern vector<Metadata*> metadata;
 
-extern int numero_clausulas, numero_variaveis;
+extern int numero_clausulas, numero_variaveis, qtd_thread;
+
+extern vector<thread> workers;
+
+extern pthread_t main_thread;
 
 #endif

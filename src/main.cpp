@@ -12,14 +12,10 @@
 #include "../inc/scan.hpp"
 #include "../inc/verifica.hpp"
 
-#define MAX_THREAD 12
-
 using namespace std;
 
-int index_ = 0, index_flip = 0, qtd_thread = 0, index_print = 0,
+int index_ = 0, index_flip = 0, index_print = 0,
     index_consumer = 0;
-
-pthread_t main_thread;
 
 void print_vars() {
   for (int i = 0; i < numero_variaveis * 2; i++) {
@@ -32,6 +28,7 @@ void solve_cmd(Full *cmd, Metadata *ptr_met) {
 
   verifica_formula(ptr_met->mtdt[ptr_met->indexes++], cmd);
   //verifica_todas_as_clausula(ptr_met->mtdt[ptr_met->indexes++]);  // n*m
+  // cout <<"hello\n" ;
 
   int qtd_flips = cmd->flips.size();
 
@@ -94,15 +91,22 @@ int main(int argc, char **argv) {
       fulls[index_ - 1].flips[index_flip++].var = var;
     }
   }
-
+  // cout <<"kin\n" ;
+  for(thread& tt: workers) {
+   if(tt.joinable())
+     tt.join();
+  }
+cout <<"kon\n" ;
   for (int i = index_consumer; i < index_; i++) {
     metadata.push_back(new Metadata());
     while(qtd_thread > MAX_THREAD){
       usleep(1);
     }
+    // cout <<"tin\n" ;
     qtd_thread++;
     thread th(solve_cmd, &fulls[i], metadata[i]);
     consumers.push_back(move(th));
+    // cout <<"kin\n" ;
     // solve_cmd(&fulls[i], metadata[i]);
   }
   for(thread& tt: consumers) {
@@ -129,7 +133,7 @@ int main(int argc, char **argv) {
         metadata[j]->mtdt[i]->lits){
 
           cout << " " << it.first;
-        }
+        } 
         cout << endl;
       }
     }

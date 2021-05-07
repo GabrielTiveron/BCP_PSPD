@@ -13,4 +13,8 @@ vector<Clausula> clausulas;
 vector<Full> fulls;
 vector<Metadata*> metadata;
 
-int numero_clausulas, numero_variaveis;
+int numero_clausulas, numero_variaveis, qtd_thread = 0;
+
+vector<thread> workers;
+
+pthread_t main_thread;
