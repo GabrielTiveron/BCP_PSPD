@@ -10,6 +10,23 @@
 * Para executar o binário, execute o comando:
 `./bin/prog`
 
+## Algorítimo
+
+![image](https://user-images.githubusercontent.com/34405790/117375631-c7366600-aea5-11eb-8886-189d9829a0e2.png)
+
+O algorítomo de resolução das cláusulas funciona armazenando uma cópia de um vector com todas as cláusulas e variáveis para cada full e indo em cada cláusula para determinar seu valor e depois repetindo o processo para cada flip.
+
+## Paralelização
+
+O método de paralelização escolhido foi separar cada thread para resolver cada full e seus flips. Performance é perdida pois parte da verificação do valor das cláusulas é feito na thread pricipal enquanto os valores ainda são lidos.
+
+## Possíveis otimizações
+
+* Para melhorar a performance do programa é possível modificar as funções para_verdadeiro e para_falso para que a verificação dos valores das cláusulas e a execução da função verifica_clausula seja executada mais tarde no programa e tornar possível que seja executada em threads diferentes da principal.
+![image](https://user-images.githubusercontent.com/34405790/117382363-b8a37b00-aeb4-11eb-9217-0f2a58a661ec.png)
+<br>
+* É possível mudar o cálculo dos flips para que todas as clausulas não precisem serm verificadas em cada flip.
+
 ## Análise
 
 Gere um relatório simples contendo gráficos de desempenho para as diversas execuções
