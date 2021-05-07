@@ -22,10 +22,11 @@ O método de paralelização escolhido foi separar cada thread para resolver cad
 
 ## Possíveis otimizações
 
-* Para melhorar a performance do programa é possível modificar as funções para_verdadeiro e para_falso para que a verificação dos valores das cláusulas e a execução da função verifica_clausula seja executada mais tarde no programa e tornar possível que seja executada em threads diferentes da principal.
+* Para melhorar a performance do programa é possível modificar as funções `para_verdadeiro` e `para_falso` para que a verificação dos valores das cláusulas e a execução da função `verifica_clausula` seja executada mais tarde no programa e tornar possível que seja executada em threads diferentes da principal.
 ![image](https://user-images.githubusercontent.com/34405790/117382363-b8a37b00-aeb4-11eb-9217-0f2a58a661ec.png)
 <br>
-* É possível mudar o cálculo dos flips para que todas as clausulas não precisem serm verificadas em cada flip.
+
+* É possível mudar o cálculo dos flips na função `flip_variavel` para que todas as clausulas não precisem serm verificadas em cada flip.
 
 ## Análise
 
