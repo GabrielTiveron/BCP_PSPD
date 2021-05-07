@@ -28,6 +28,8 @@ O método de paralelização escolhido foi separar cada thread para resolver cad
 
 * É possível mudar o cálculo dos flips na função `flip_variavel` para que todas as clausulas não precisem serm verificadas em cada flip.
 
+* A verificação das clásulas pode começar a ser feita em threads antes de o input terminar de ser lido.
+
 ## Análise
 
 Gere um relatório simples contendo gráficos de desempenho para as diversas execuções
