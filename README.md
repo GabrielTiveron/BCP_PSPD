@@ -13,6 +13,10 @@
 * Para executar o binário, execute o comando:
 `./bin/prog`
 
+## Arquitetura
+
+![arquitetura](img/arquitetura.png)
+
 ## Algorítimo
 
 ![image](https://user-images.githubusercontent.com/34405790/117375631-c7366600-aea5-11eb-8886-189d9829a0e2.png)
@@ -75,7 +79,14 @@ O(f ((c v)+(fl+1)(c c + v c) + fl (v log(v)))))
 
 ### O seu algoritmo aproveita resultados parciais para avaliar flips mais rapidamente?
 
-Sim. Para cada flip, é feito uma "nova versão" das clausulas, e para cada variável tida como verdadeira é diretamente feita uma valoração verdadeira as suas clausulas para que não sejam reavaliadas nessa "versão".
+Sim. Para cada flip, é feito uma "nova versão" das clausulas, e para cada variável tida como verdadeira é diretamente feita uma valoração verdadeira as suas clausulas para que não sejam reavaliadas nessa "versão". Porém, é apenas aproveitado para casos onde há tautologias.
+
+### Ambiente de teste
+
+* Processador: Ryzen 3600X 6 Cores 12 threads;
+* Memória RAM: 16 Gb, 2400 MHz;
+* Disco Rígido: 480 Gb, Leitura: 500 Mb / s, Escrita 450 Mb / s.
+
 
 ### Resultados
 
@@ -90,3 +101,9 @@ Melhor desempenho
 Comparativo com nosso foco de paralelização
 
 ![tempoxfull](img/qtd_full.png)
+
+### Consumo de memória
+
+Os dados apresentados abaixo foram extraídos utilizando o comando ```/usr/bin/time -f "mem=%K RSS=%M elapsed=%E cpu.sys=%S .user=%U"``` seguido do comando de execução do programa principal.
+
+![mem_comp](img/mem_comp.png)
