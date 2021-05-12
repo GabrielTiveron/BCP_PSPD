@@ -17,9 +17,9 @@
 
 ![arquitetura](img/arquitetura.png)
 
-## Algorítimo
+## Algorítmo
 
-![image](https://user-images.githubusercontent.com/34405790/117375631-c7366600-aea5-11eb-8886-189d9829a0e2.png)
+![image](img/algoritmo.png)
 
 O algorítomo de resolução das cláusulas funciona armazenando uma cópia de um vector com todas as cláusulas e variáveis para cada full e indo em cada cláusula para determinar seu valor e depois repetindo o processo para cada flip.
 
