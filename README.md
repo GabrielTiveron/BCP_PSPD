@@ -53,7 +53,9 @@ Sim. Em entradas grandes é perceptível.
 ### Isole o tempo de execução da função que avalia a verificação (descontando o tempo de leitura da fórmula e de cada valoração full e flips)
 
 Amostra de uma execução por arquivo com 4 threads.
+
 * Processador: Intel Core i5 6600k 4 Cores 4 threads;
+
 Com prints:
 * flat75-90: 1.111s
 * flat175-44: 41.053s
