@@ -21,7 +21,7 @@
 
 ![image](img/algoritmo.png)
 
-O algorítomo de resolução das cláusulas funciona armazenando uma cópia de um vector com todas as cláusulas e variáveis para cada full e indo em cada cláusula para determinar seu valor e depois repetindo o processo para cada flip.
+O algorítmo de resolução das cláusulas funciona armazenando uma cópia de um vector com todas as cláusulas e variáveis para cada full e indo em cada cláusula para determinar seu valor e depois repetindo o processo para cada flip.
 
 ## Paralelização
 
@@ -44,7 +44,7 @@ Coloque a comparação da sua solução com a implementação sequencial forneci
 Avalie o gargalo do seu algoritmo
 ### O maior problema acontece nas estruturas de controle (ex:semáforos)?
 
-Não. O maior gargalo é no processamento, quando o número de threads do programa é igual ao do computador.
+Não. O maior gargalo é no processamento, qunado há um número muito elevado de flips.
 
 ### O tempo de leitura da entrada é perceptível?
 
